@@ -1,3 +1,8 @@
-h2{
-	color: green;
+.ml-auto{
+	margin-right: 20px;
+}
+
+.book{
+	background-image: url("./img/books.jpg");
+
 }
