@@ -1,8 +1,33 @@
+body, html{
+	height: 100%;
+	margin: 0;
+}
+
 .ml-auto{
 	margin-right: 20px;
 }
 
 .book{
 	background-image: url("./img/books.jpg");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+    text-align: center;
+}
 
+.centered{
+	position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-primary{
+	margin-right: 15px;
+}
+
+.btn-success{
+	margin-left: 15px;
 }
