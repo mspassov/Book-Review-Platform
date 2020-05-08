@@ -1,7 +1,7 @@
 import os
 import requests
 
-from flask import Flask, session, render_template, url_for
+from flask import Flask, session, render_template, url_for, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -29,3 +29,11 @@ def index():
 @app.route("/register")
 def register():
 	return render_template("register.html")
+
+@app.route("/hello", methods=["POST"])
+def hello():
+	name = request.form.get("name")
+	passw = request.form.get("password")
+	return f"hello {name}, your password is {passw}"
+
+
