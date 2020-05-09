@@ -50,7 +50,15 @@ def regComplete():
 	except:
 		return render_template("register.html", message="username is already taken, please try again")
 
+@app.route("/login")
+def login():
+	return render_template("login.html")
 
+@app.route("/account", methods=["POST"])
+def account():
+	username = request.form.get("username")
+	password = request.form.get("password")
+	return f"Welcome back! {var}"
 	
 
 
