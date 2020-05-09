@@ -17,7 +17,19 @@
 	</div>
 	
 	{% if check == "registered" %}
-		
+		<div id="overlay">
+			<div class="col-sm-6 centered">
+			    <div class="card">
+			      <div class="card-body">
+			        <h5 class="card-title">Registered!</h5>
+			        <p class="card-text">Thank you for registering for Book Worm, you may now login</p>
+			        <a href="{{ url_for('index') }}" class="btn btn-outline-primary">Close</a>
+			      </div>
+			    </div>
+	  		</div>
+		</div>
 	{% endif %}
+
+
 
 {% endblock %}
