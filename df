@@ -1,0 +1,53 @@
+[33mcommit c7a06d74c4b4568a38d1e2af5c48fb109bd6c070[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Sat May 9 11:28:27 2020 -0400
+
+    overlay finished for full registration
+
+[33mcommit 76cbce3c5ff8d42e074dca29c2175c69da412116[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Sat May 9 10:49:02 2020 -0400
+
+    links in registration fixed
+
+[33mcommit 3794329ec79fa826b3b2f53380e5fa70a5d83d07[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Fri May 8 11:15:57 2020 -0400
+
+    registration page html/css completed
+
+[33mcommit a88a15eac8899b46227c0cd4a010739684198d2a[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Fri May 8 11:09:15 2020 -0400
+
+    register page working
+
+[33mcommit 06e7236b501622d613ac466df06fe1d16b3469a3[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Thu May 7 11:35:01 2020 -0400
+
+    registration html/css completed
+
+[33mcommit ea7d5b0d10ccbc63bbcbb868db8bdde847373975[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Thu May 7 10:28:08 2020 -0400
+
+    index.html html/css completed
+
+[33mcommit 9cce82b552b788b31775229572808e64cd6d20f6[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Thu May 7 10:05:44 2020 -0400
+
+    css updates
+
+[33mcommit bca3a06c2665f6a52257a7f653fa2c3c0e84e31f[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Wed May 6 21:57:40 2020 -0400
+
+    skeleton website setup + html/css files templated
+
+[33mcommit f29b4f64f7931bebb5c160fb404dfcc6ab8e48c7[m
+Author: Martin Spassov <martispassov@gmail.com>
+Date:   Tue May 5 11:43:38 2020 -0400
+
+    Initial project setup
