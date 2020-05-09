@@ -58,7 +58,13 @@ def login():
 def account():
 	username = request.form.get("username")
 	password = request.form.get("password")
-	return f"Welcome back! {var}"
+	row = db.execute("SELECT * FROM accounts where username = :username and password = :password", {"username": username, "password": password}).rowcount
+	if row == 1:
+		var = "signed in"
+		return f"Welcome back! {var}"
+	else:
+		return render_template("login.html", row=0)
+	
 	
 
 
