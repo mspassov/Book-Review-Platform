@@ -30,10 +30,27 @@ def index():
 def register():
 	return render_template("register.html")
 
-@app.route("/hello", methods=["POST"])
-def hello():
-	name = request.form.get("name")
+@app.route("/regComplete", methods=["POST"])
+def regComplete():
+
+	uname = request.form.get("username")
 	passw = request.form.get("password")
-	return f"hello {name}, your password is {passw}"
+	confirmPass = request.form.get("cpassword")
+
+	if passw != confirmPass:
+		return render_template("register.html", message="passwords do not match")
+
+	if passw == '' or uname == '':
+		return render_template("register.html", message="you have not completed all the fields")
+
+	try:
+		db.execute("INSERT INTO accounts (username, password) VALUES (:uname, :passw)", {"uname": uname, "passw": passw})
+		db.commit()
+		return render_template("index.html", check = "registered")
+	except:
+		return render_template("register.html", message="username is already taken, please try again")
+
+
+	
 
 
