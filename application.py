@@ -59,6 +59,8 @@ def account():
 	username = request.form.get("username")
 	password = request.form.get("password")
 	row = db.execute("SELECT * FROM accounts where username = :username and password = :password", {"username": username, "password": password}).rowcount
+	db.commit()
+	
 	if row == 1:
 		var = "signed in"
 		return f"Welcome back! {var}"
