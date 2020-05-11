@@ -62,9 +62,14 @@ def account():
 	db.commit()
 
 	if row == 1:
-		return render_template("dashboard.html")
+		return render_template("dashboard.html", displayName = username)
 	else:
 		return render_template("login.html", row=0)
+
+@app.route("/search", methods=["POST"])
+def search():
+	search = request.form.get("search")
+	return f"your search was: {search}"
 	
 	
 
