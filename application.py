@@ -54,10 +54,13 @@ def regComplete():
 def login():
 	return render_template("login.html")
 
+
+
 @app.route("/account", methods=["POST"])
 def account():
 	username = request.form.get("username")
 	password = request.form.get("password")
+
 	row = db.execute("SELECT * FROM accounts where username = :username and password = :password", {"username": username, "password": password}).rowcount
 	db.commit()
 
@@ -68,9 +71,24 @@ def account():
 
 @app.route("/search", methods=["POST"])
 def search():
+	check = 0
 	search = request.form.get("search")
-	return f"your search was: {search}"
-	
+
+	if search == "":
+		#error
+		check+=1
+		return render_template("dashboard.html", check=1)
+
+	elif search[0].isdigit() == True:
+		#isbn search
+		results = db.execute("SELECT * from books where isbn like :search ", {"search":'%' + search + '%'})
+		return render_template("dashboard.html", results=results, check=2)
+
+	else:
+		#title and author search
+		authorResults = db.execute("SELECT * from books where author like :search ", {"search":'%' + search + '%'})
+		titleResults = db.execute("SELECT * from books where title like :search ", {"search":'%' + search + '%'})
+		return render_template("dashboard.html", check=3, results1=titleResults, results2=authorResults)
 	
 
 
