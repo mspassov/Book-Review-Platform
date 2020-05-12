@@ -99,4 +99,21 @@ def search():
 		return render_template("dashboard.html", check=3, results1=titleResults, results2=authorResults)
 	
 
+@app.route("/<string:bookName>", methods=["GET", "POST"])
+def reviews(bookName):
+	content = db.execute("SELECT * from books where title=:bookName", {"bookName": bookName})
+	passedContent = db.execute("SELECT * from books where title=:bookName", {"bookName": bookName})
+	isbnKey = ""
+	for i in content:
+		isbnKey = i.isbn
+	
+	imageURL="http://covers.openlibrary.org/b/isbn/"+isbnKey+"-M.jpg"
+
+	res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "3a3uMt1q8uLsCdlWggCzA", "isbns": isbnKey})
+	res = res.json()
+	avgRating = res["books"][0]["average_rating"]
+	numRating = res["books"][0]["work_ratings_count"]
+
+	return render_template("reviews.html", results=passedContent, imageURL=imageURL, avgRating=avgRating, 
+		numRating=numRating)
 
