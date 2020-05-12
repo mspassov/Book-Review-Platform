@@ -82,12 +82,20 @@ def search():
 	elif search[0].isdigit() == True:
 		#isbn search
 		results = db.execute("SELECT * from books where isbn like :search ", {"search":'%' + search + '%'})
+		row = db.execute("SELECT * from books where isbn like :search ", {"search":'%' + search + '%'}).rowcount
+		if row == 0:
+			return render_template("dashboard.html", check=4)
+
 		return render_template("dashboard.html", results=results, check=2)
 
 	else:
 		#title and author search
 		authorResults = db.execute("SELECT * from books where author like :search ", {"search":'%' + search + '%'})
 		titleResults = db.execute("SELECT * from books where title like :search ", {"search":'%' + search + '%'})
+		row = db.execute("SELECT * from books where title like :search ", {"search":'%' + search + '%'}).rowcount + db.execute("SELECT * from books where author like :search ", {"search":'%' + search + '%'}).rowcount
+		if row == 0:
+			return render_template("dashboard.html", check=4)
+
 		return render_template("dashboard.html", check=3, results1=titleResults, results2=authorResults)
 	
 
