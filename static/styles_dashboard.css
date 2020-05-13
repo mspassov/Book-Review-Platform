@@ -1,0 +1,29 @@
+.ml-auto{
+	margin-right: 20px;
+}
+
+.hero{
+	text-align: center;
+	margin-top: 20px;
+}
+
+.searchBar{
+
+	background-color: red;
+}
+
+.invalid{
+	color: red;
+	text-align: center;
+}
+
+h6{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+ul{
+	margin-left: 20%;
+	margin-right: 20%;
+}
