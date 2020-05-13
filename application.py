@@ -70,6 +70,11 @@ def account():
 	else:
 		return render_template("login.html", row=0)
 
+@app.route("/dashboard")
+def dashboard():
+	return render_template("dashboard.html")
+
+
 @app.route("/search", methods=["POST"])
 def search():
 	check = 0
