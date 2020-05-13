@@ -4,3 +4,16 @@ CREATE TABLE books(
 	author VARCHAR NOT NULL,
 	year INTEGER NOT NULL
 );
+
+
+
+CREATE TABLE reviews(
+	id SERIAL PRIMARY KEY,
+	username VARCHAR NOT NULL,
+	isbn VARCHAR NOT NULL,
+	review VARCHAR NOT NULL,
+	rating VARCHAR NOT NULL
+);
+
+
+

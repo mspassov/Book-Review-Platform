@@ -61,6 +61,8 @@ def account():
 	username = request.form.get("username")
 	password = request.form.get("password")
 
+	session["user"] = username
+
 	row = db.execute("SELECT * FROM accounts where username = :username and password = :password", {"username": username, "password": password}).rowcount
 	db.commit()
 
@@ -101,6 +103,7 @@ def search():
 
 @app.route("/<string:bookName>", methods=["GET", "POST"])
 def reviews(bookName):
+
 	content = db.execute("SELECT * from books where title=:bookName", {"bookName": bookName})
 	passedContent = db.execute("SELECT * from books where title=:bookName", {"bookName": bookName})
 	isbnKey = ""
@@ -114,14 +117,25 @@ def reviews(bookName):
 	avgRating = res["books"][0]["average_rating"]
 	numRating = res["books"][0]["work_ratings_count"]
 
+	#display the current ratings
+	reviewsDB = db.execute("SELECT * from reviews where isbn=:isbnK", {"isbnK": isbnKey})
+	db.commit()
+	session["isbn"] = isbnKey
+
 	return render_template("reviews.html", results=passedContent, imageURL=imageURL, avgRating=avgRating, 
-		numRating=numRating)
+		numRating=numRating, reviewsDB=reviewsDB)
 
 @app.route("/postReview", methods=["GET", "POST"])
 def postReview():
 	score = request.form.get("score")
 	rev = request.form.get("reviewPosted")
+	username = session["user"]
+	isbn = session["isbn"]
 
-	return f"{score} and {rev}"
+	db.execute("INSERT into reviews (username, isbn, review, rating) VALUES (:username, :isbn, :review, :rating)", 
+		{"username": username, "isbn": isbn, "review": rev, "rating": score})
+	db.commit()
+
+	return render_template("reviews.html")
 
 
