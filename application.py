@@ -117,3 +117,11 @@ def reviews(bookName):
 	return render_template("reviews.html", results=passedContent, imageURL=imageURL, avgRating=avgRating, 
 		numRating=numRating)
 
+@app.route("/postReview", methods=["GET", "POST"])
+def postReview():
+	score = request.form.get("score")
+	rev = request.form.get("reviewPosted")
+
+	return f"{score} and {rev}"
+
+
