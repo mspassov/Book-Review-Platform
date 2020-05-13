@@ -146,5 +146,6 @@ def reviews(bookName):
 		numRating=numRating, reviewsDB=reviewsDB, block=rowCheck)
 
 
-
+if __name__ == "__main__":
+	app.run()
 
