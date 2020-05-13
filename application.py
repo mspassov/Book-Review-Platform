@@ -55,7 +55,6 @@ def login():
 	return render_template("login.html")
 
 
-
 @app.route("/account", methods=["POST"])
 def account():
 	username = request.form.get("username")
@@ -117,25 +116,30 @@ def reviews(bookName):
 	avgRating = res["books"][0]["average_rating"]
 	numRating = res["books"][0]["work_ratings_count"]
 
-	#display the current ratings
+	rowCheck = 0
+	if request.method == "POST":
+		score = request.form.get("score")
+		rev = request.form.get("reviewPosted")
+		username = session["user"]
+		isbn = session["isbn"]
+
+		rowCheck = db.execute("SELECT * from reviews where username=:name and isbn=:isbn", {"name": username, "isbn":isbn}).rowcount
+		db.commit()
+
+		if rowCheck == 0:
+			db.execute("INSERT into reviews (username, isbn, review, rating) VALUES (:username, :isbn, :review, :rating)", 
+				{"username": username, "isbn": isbn, "review": rev, "rating": score})
+			db.commit()
+
+	#display the current reviews
 	reviewsDB = db.execute("SELECT * from reviews where isbn=:isbnK", {"isbnK": isbnKey})
 	db.commit()
 	session["isbn"] = isbnKey
 
+
 	return render_template("reviews.html", results=passedContent, imageURL=imageURL, avgRating=avgRating, 
-		numRating=numRating, reviewsDB=reviewsDB)
+		numRating=numRating, reviewsDB=reviewsDB, block=rowCheck)
 
-@app.route("/postReview", methods=["GET", "POST"])
-def postReview():
-	score = request.form.get("score")
-	rev = request.form.get("reviewPosted")
-	username = session["user"]
-	isbn = session["isbn"]
 
-	db.execute("INSERT into reviews (username, isbn, review, rating) VALUES (:username, :isbn, :review, :rating)", 
-		{"username": username, "isbn": isbn, "review": rev, "rating": score})
-	db.commit()
-
-	return render_template("reviews.html")
 
 
