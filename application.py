@@ -1,7 +1,7 @@
 import os
 import requests
 
-from flask import Flask, session, render_template, url_for, request
+from flask import Flask, session, render_template, url_for, request, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -146,6 +146,35 @@ def reviews(bookName):
 		numRating=numRating, reviewsDB=reviewsDB, block=rowCheck)
 
 
+@app.route("/api/<string:isbn>")
+def book_api(isbn):
+
+	book = db.execute("SELECT * from books where isbn=:isbn", {"isbn":isbn})
+	bookRow = db.execute("SELECT * from books where isbn=:isbn", {"isbn":isbn}).rowcount
+
+	if bookRow == 0:
+		return jsonify({"error": "invalid book ISBN"}), 404
+
+	else:
+		for row in book:
+			title = row.title
+			author = row.author
+			year = row.year
+
+			res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "3a3uMt1q8uLsCdlWggCzA", "isbns": isbn})
+			res = res.json()
+			avgRating = res["books"][0]["average_rating"]
+			numRating = res["books"][0]["work_ratings_count"]
+
+			return jsonify({
+					"title": title,
+					"author": author,
+					"year": year,
+					"isbn": isbn,
+					"review_count": numRating,
+					"average_score": avgRating
+				})
+			
+
 if __name__ == "__main__":
 	app.run(debug=True)
-
