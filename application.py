@@ -153,7 +153,9 @@ def book_api(isbn):
 	bookRow = db.execute("SELECT * from books where isbn=:isbn", {"isbn":isbn}).rowcount
 
 	if bookRow == 0:
-		return jsonify({"error": "invalid book ISBN"}), 404
+		return jsonify({"error": "invalid book ISBN",
+						"code": 404
+			}), 404
 
 	else:
 		for row in book:
